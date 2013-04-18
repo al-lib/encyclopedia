@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!-- http://sitear.ru/material/jquery-validaciya-form-i-polej -->
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+		<title>add</title>
+
+	</head>
+
+	<body>
+		<div id="content">
+		  <form id="jform" action="add.php" method="post" enctype="multipart/form-data">
+		  	<fieldset >
+		  		<legend>Личность</legend>
+		  		<p><label for="person_name">Имя: </label>
+		  			<input type="text" name="person_name" id="person_name"/>
+		  	 &nbsp;
+
+		  			<label for="brief">Краткая информация</label>
+		  			<textarea name="brief" id="brief" cols="20" rows="3"></textarea>
+		  		</p>
+		  		<fieldset>
+		  		<legend>Внешние файлы</legend>
+		  			<p>
+		  				<label for="photo">Фотография </label>
+		  				<input type="file" accept="image/*" multiple name="photo" id="photo"/>
+		  			 &nbsp;
+		  				<label for="article">Статья</label>
+		  				<input type="file" accept="text/html"  name="article" id="article"/>
+		  			</p>
+			  	</fieldset>
+			  	<fieldset>
+			  		<legend>Параметры поиска </legend>
+			  			<p><label for="action">Сфера деятельности</label>
+			  				<select name="action" id="action"> 
+			  					<option value="1">1</option>
+			  				</select>
+			  			 &nbsp;
+
+			  			<label for="age">Временной интервал</label>
+			  				<select name="age" id="age"> 
+			  					<option value="1">1</option>
+			  					<option value="2">2</option>
+			  				</select>
+			  			 &nbsp;
+
+			  				<label for="keywords">Ключевые слова</label>
+			  				<textarea name="keywords" id="keywords" cols="20" rows="1"></textarea>
+			  			</p>
+			  	</fieldset>
+		  	</fieldset>
+		  	
+		  	
+		  	
+		  	<fieldset>
+		  		<legend>Резерв</legend>
+		  	</fieldset>
+		  	<input type="submit" value="Добавить"/> <input type="reset" value="Сбросить"/>
+		  </form>	
+		  
+		</div>
+		
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="validate.js" charset="utf-8"></script>
+	
+	</body>
+</html>
