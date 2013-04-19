@@ -7,6 +7,15 @@ body {
         font: normal 13px Georgia, "Times New Roman", Times, serif;
         color: #222;
 }
+#status{
+	width: 300px;
+	background:#A9A9A9;
+	font: normal small-caps bold 15px Arial, Helvetica, sans-serif;
+	text-align: center;
+	padding: 10 auto;
+	color: #D50000;
+	
+}
 #content {
         width: 500px;
         margin: 0 auto;
