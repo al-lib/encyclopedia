@@ -3,7 +3,7 @@
 	jFormValidator={
 				DIGITS_ALLOWED : true,
 				DIGITS_DENIED : false,
-			  //  'check_and_warning' : function (checked_id, terms ) {
+		
 			  'check_and_warning' : function (checked_id, min_length_value, data_type) {
 					$('body').append('<div id="warning_div" class="information_block"></div');
 					var warn_div=$('#warning_div');
@@ -13,7 +13,7 @@
 						top: checking_textbox_position.top-3,
 						left: checking_textbox_position.left+checking_textbox.width()+15
 					});
-					/// TODO: ДОБАВИТЬ ПРОВЕРКУ НА "НЕ-ЧИСЛО" if(regexp){raise_warning}else {do_below}
+				
 					var pattern_not_cyrillic=/[^А-я]+/i;
 					
 					if((pattern_not_cyrillic.test(checking_textbox.val())) && (data_type==jFormValidator.DIGITS_DENIED)){
@@ -36,80 +36,22 @@
 			  },
 			  
 				'check_name' : function() {
-											/*
-											$('body').append('<div id="nameInfo" class="information_block"></div');
-											var name_info_div=$('#nameInfo');		
-											var name_textbox=$('#person_name');
-											var name_textbox_position = name_textbox.offset();		
-											name_info_div.css({
-													top: name_textbox_position.top-3,
-													left: name_textbox_position.left+name_textbox.width()+15
-											});		
-											if (name_textbox.val().length<3){
-												
-												 jFormValidator.error_is_found=true;
-												 name_info_div.removeClass('block_show_correct').addClass('block_show_error').html("← слишком мало символов в имени").show();													
-												 name_textbox.removeClass('element_is_normal').addClass('element_is_wrong');
-											} 
-											else{
-												name_info_div.removeClass('block_show_error').addClass('block_show_correct').html("√").show();													
-												 name_textbox.removeClass('element_is_wrong').addClass('element_is_normal');
-											}
-											*/
 											jFormValidator.check_and_warning('#person_name',3,jFormValidator.DIGITS_DENIED);
 				},
 				'check_short_description' : function() {
-											/*
-											 	$('body').append('<div id="briefInfo" class="information_block"></div');
-												var short_description_info_div=$('#briefInfo');		
-												var short_description_textbox=$('#brief');
-												var short_description_textbox_position = short_description_textbox.offset();		
-												short_description_info_div.css({
-														top: short_description_textbox_position.top-3,
-														left: short_description_textbox_position.left+short_description_textbox.width()+15
-												});		
-												if (short_description_textbox.val().length<20){
-													 jFormValidator.error_is_found=true;
-													 short_description_info_div.removeClass('block_show_correct').addClass('block_show_error').html("← слишком мало символов").show();													
-													 short_description_textbox.removeClass('element_is_normal').addClass('element_is_wrong');
-												} 
-												else{
-													short_description_info_div.removeClass('block_show_error').addClass('block_show_correct').html("√").show();													
-													 short_description_textbox.removeClass('element_is_wrong').addClass('element_is_normal');
-												}
-											*/
-											jFormValidator.check_and_warning('#brief',20,jFormValidator.DIGITS_ALLOWED);
+														jFormValidator.check_and_warning('#brief',20,jFormValidator.DIGITS_ALLOWED);
 				},
 					'check_keywords' : function() {
-												/*
-												$('body').append('<div id="keywordsInfo" class="information_block"></div');
-												var keywords_info_div=$('#keywordsInfo');		
-												var keywords_textbox=$('#keywords');
-												var keywords_textbox_position = keywords_textbox.offset();		
-												keywords_info_div.css({
-														top: keywords_textbox_position.top-3,
-														left: keywords_textbox_position.left+keywords_textbox.width()+15
-												});		
-												if (keywords_textbox.val().length<20){
-													 jFormValidator.error_is_found=true;
-													 keywords_info_div.removeClass('block_show_correct').addClass('block_show_error').html("← слишком мало символов").show();													
-													 keywords_textbox.removeClass('element_is_normal').addClass('element_is_wrong');
-												} 
-												else{
-													keywords_info_div.removeClass('block_show_error').addClass('block_show_correct').html("√").show();													
-													 keywords_textbox.removeClass('element_is_wrong').addClass('element_is_normal');
-												}
-												*/
-												jFormValidator.check_and_warning('#keywords',20,jFormValidator.DIGITS_ALLOWED);
+													jFormValidator.check_and_warning('#keywords',20,jFormValidator.DIGITS_ALLOWED);
 				},
 				'check_file_article' : function() {
-												$('body').append('<div id="articleInfo" class="information_block"></div');
-												var file_article_info_div=$('#articleInfo');		
-												var file_article_element=$('#article');
-												var file_article_element_position = file_article_element.offset();		
-												file_article_info_div.css({
-														top: file_article_element_position.top-3,
-														left: file_article_element_position.left+file_article_element.width()+15
+													$('body').append('<div id="articleInfo" class="information_block"></div');
+													var file_article_info_div=$('#articleInfo');		
+													var file_article_element=$('#article');
+													var file_article_element_position = file_article_element.offset();		
+													file_article_info_div.css({
+															top: file_article_element_position.top-3,
+															left: file_article_element_position.left+file_article_element.width()+15
 												});		
 												var article_pathfile_pattern=/^[A-Z]{1}:\\([A-ZА-я.0-9!@()\\_\s:]*)$/i;
 												if (!article_pathfile_pattern.test(file_article_element.val())){
@@ -118,7 +60,7 @@
 													 file_article_element.removeClass('element_is_normal').addClass('element_is_wrong');
 												} 
 												else{
-													file_article_info_div.removeClass('block_show_error').addClass('block_show_correct').html("√").show();													
+													 file_article_info_div.removeClass('block_show_error').addClass('block_show_correct').html("√").show();													
 													 file_article_element.removeClass('element_is_wrong').addClass('element_is_normal');
 												}
 				},
