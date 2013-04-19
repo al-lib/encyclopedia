@@ -69,7 +69,7 @@ include("class/database_manager.class.php");
 			  	<fieldset>
 			  		<legend>Параметры поиска </legend>
 			  		<table>
-						<tr>
+						<!--<tr>
 							<td class="description_column">
 								<label for="action">Сфера деятельности</label>
 							</td>
@@ -80,7 +80,7 @@ include("class/database_manager.class.php");
 			  					?>
 			  					</select>
 							</td>
-						</tr>
+						</tr> -->
 						<tr>
 							<td class="description_column">
 								<label for="age">Временной интервал</label>
