@@ -12,7 +12,7 @@ if(checking_file_safety())
 copy($_FILES['article']['tmp_name'], $article_filepath);
 
 */
-include_once 'classes/';
+include_once 'class/';
 
 
 $person_fullname=$_POST['person_name'];
