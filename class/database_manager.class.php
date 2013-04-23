@@ -3,9 +3,9 @@
    	 public $server;
 	 public $username;
 	 public $password;
-	 public $set_connection;
+	 public $DB;
 	 public $db_name;
-
+	
 	 public $db_state;
 	 
 	public function __construct(){
@@ -14,41 +14,50 @@
 	     $this->password="search";
 		 $this->db_name="enc";
 		 
+		 
 	}
 	 
    	public function connect(){
-   		$this->set_connection=mysqli::__construct($this->server, $this->username, $this->password, $this->db_name);
-		if (mysqli_errno($this->set_connection))
+   		$myconn=new mysqli($this->server, $this->username, $this->password, $this->db_name);
+		if ($myconn->errno)
 		{
-			$this->db_state="НЕ УДАЛОСЬ ПОДКЛЮЧИТЬСЯ: ".mysqli::$error($this->set_connection);
+			$this->db_state="НЕ УДАЛОСЬ ПОДКЛЮЧИТЬСЯ: ".$myconn->error;
 		}
 		else 
 		{
+			$this->DB=$myconn;
 			$this->db_state="Подключение установлено";
 		}
 		
    	}
 	public function disconnect(){
-		  mysqli::close($this->set_connection);
+		 $this->DB->close($this->DB);
    	}
 	public function authorization($username, $userpass)
 	{
 		
 	}
-	public function get_option_list($selectbox_name)
-	{
+	public function get_option_list($selectbox_name){
 	  $sql_query="SELECT * FROM ".$selectbox_name;	
-	  $sql_result=mysqli_query($this->set_connection,$sql_query);
-	  if($sql_result)
-	  {
+	  $sql_result=mysqli_query($sql_query);
+	  if($sql_result)  {
 	  	while ($current_record = mysqli_fetch_array($sql_result)) {
 	  			$id_value=$current_record['id'];
 				$displayed_value=$current_record['speccol'];
 				
 				echo("<option value=\"".$id_value."\">".$displayed_value."</option>");		  
-		  }
+		 }
 	  }
-	  
 	}
-   }
+	
+   public function add_record($array_rec) {
+   	$Val="";
+   	foreach ($array_rec as $key) {
+		   $Val.="'".$key."', ";
+	   }
+   	$sql_insert="INSERT INTO ".$this->db_name." VALUES (".$Val.")";
+	$result=mysqli_query($sql_insert);
+       
+   }	
+ }
 ?>

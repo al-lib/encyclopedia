@@ -4,10 +4,10 @@
 		var $correct_name;
 		var $short_description;
 		
-		var $article_file;
+		var $article_filename;
 		var $upload_dir;
 		var $tmp_filename;
-		var $filename;
+		
 		var $safetyerror;
 		
 		var $age;
@@ -24,31 +24,35 @@
 //			$this->safety_ok=TRUE;
 			$this->upload_dir="files/";
 			$this->tmp_filename=$_FILES['article']['tmp_name'];
-			$this->filename=$_FILES['article']['name'];
+			$this->article_filename=$_FILES['article']['name'];
+			
+			define('SPACE', ' ');
+			define('COMMA', ', ');
+			define('ENC', 'UTF-8');
 			
 			
-			$this->SPACE=" ";
-			$this->COMMA=", ";
 		}
 		
 		private function capitalize_first($input_string){
-			$input_string=mb_convert_case($input_string, MB_CASE_TITLE,"UTF-8");
+		//	$input_string=mb_convert_case($input_string, MB_CASE_TITLE,"UTF-8");
+			$input_string=mb_convert_case($input_string, MB_CASE_TITLE,ENC);
 			return $input_string;
 		}
 		
 		private function remove_multiple_spaces($input_string, $replace_with){
+			$input_string=strip_tags($input_string);	
 			$input_string=trim($input_string);
 			$many_spaces_pattern="/\s+/";
 			return preg_replace($many_spaces_pattern, $replace_with, $input_string);	
 		}
     	
 		public function check_name(){
-			$this->correct_name=$this->remove_multiple_spaces($this->correct_name, $this->SPACE);
+			$this->correct_name=$this->remove_multiple_spaces($this->correct_name, SPACE);
 			$this->correct_name=$this->capitalize_first($this->correct_name);					
 		}
 		
 		public function file_safety_upload($filename){
-			$destination=$this->upload_dir.basename($this->filename);	
+			$destination=$this->upload_dir.basename($this->article_filename);	
 		//	if ($this->is_html($filename))
 			move_uploaded_file($filename, $destination);
 		}
@@ -57,12 +61,12 @@
 				return(preg_match("/[html|htm]$/i", $filename));			
 		}
 */
-		public function check_short_description($short_description_value){
-			
+		public function check_short_description(){
+			$this->short_description=$this->remove_multiple_spaces($this->short_description, SPACE);
 		}
+		
 		public function parse_keywords()	{
-			$this->keywords=$this->remove_multiple_spaces($this->keywords, $this->COMMA);
-			
+			$this->keywords=$this->remove_multiple_spaces($this->keywords, COMMA);
 		}
    }
 ?>
