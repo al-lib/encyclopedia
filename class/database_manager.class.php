@@ -38,7 +38,7 @@
 	public function get_option_list($selectbox_name)
 	{
 	  $sql_query="SELECT * FROM ".$selectbox_name;	
-	  $sql_result=mysqli_query($sql_query);
+	  $sql_result=mysqli_query($this->set_connection,$sql_query);
 	  if($sql_result)
 	  {
 	  	while ($current_record = mysqli_fetch_array($sql_result)) {

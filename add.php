@@ -15,7 +15,7 @@ include("class/database_manager.class.php");
 	</head>
 
 	<body>
-		<div>
+		<div id="status">
 			<?php 
 				echo $db_manager->db_state;
 			?>
