@@ -23,9 +23,13 @@ echo $person_obj->keywords."<br/>";
 echo "send to   -->".$person_obj->upload_dir.$person_obj->article_filename."<br/>";
 echo $person_obj->tmp_filename."<br/>";
 
-$array_rec[]=$person_obj->correct_name;
-$array_rec[]=$person_obj->short_description;
-
+$record_arr= array(
+				'name' => $person_obj->correct_name, 
+				'short_description' => $person_obj->short_description,
+				'age' => $person_obj->age,
+				'keywords' => $person_obj->keywords,
+				'file_path' => $person_obj->upload_dir.$person_obj->article_filename
+				);
 echo $database->add_record();
 
 //**************************************************************************
