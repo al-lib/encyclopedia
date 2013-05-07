@@ -8,16 +8,39 @@
 	
 	 public $db_state;
 	 
+	 
+	 
+	 
 	public function __construct(){
 		 $this->server="localhost";
-	     $this->username="snitch";
-	     $this->password="search";
+	   
 		 $this->db_name="enc";
 		 
+		  define('READ_MODE', 100);
+		  define('WRITE_MODE', 010);
+		  define('ROOT', 111);
+		  define('GOTO_ADD',' <a href="add.php"> К форме внесения данных</a>');
+		 
+		 $this->connect(READ_MODE);
 		 
 	}
 	 
-   	public function connect(){
+   	public function connect($connection_mode){
+   		switch ($connection_mode) {
+			   case ROOT:
+				     $this->username="root";
+	    			 $this->password="";
+				   break;
+			   case WRITE_MODE:
+				      $this->username="editor";
+	    			 $this->password="12345";
+				   break;
+			   case READ_MODE:
+			   default:
+				     $this->username="snitch";
+	    			 $this->password="search";
+				   break;
+		   }
    		$myconn=new mysqli($this->server, $this->username, $this->password, $this->db_name);
 		if ($myconn->errno)
 		{
@@ -25,13 +48,14 @@
 		}
 		else 
 		{
+			$myconn->set_charset("utf8");
 			$this->DB=$myconn;
 			$this->db_state="Подключение установлено";
 		}
 		
    	}
 	public function disconnect(){
-		 $this->DB->close($this->DB);
+		 $this->DB->close();
    	}
 	public function authorization($username, $userpass)
 	{
@@ -50,15 +74,32 @@
 	  }
 	}
 	
+	
+	
    public function add_record($array_rec) {
    	$Val="";
+	
    	foreach ($array_rec as $key) {
+   		
 		   $Val.="'".$key."', ";
 	   }
-   	$sql_insert="INSERT INTO ".$this->db_name." VALUES (".$Val.")";
-	//$result=$this->DB->query($sql_insert);
-	return $sql_insert;
-       
+	$Val=substr($Val, 0, strlen($Val)-2);
+	$name=explode(", ", $Val,1);
+   	$sql_insert="INSERT INTO records (name,about,date,keywords,path) VALUES (".$Val.")";
+	//echo $sql_insert;
+	$this->disconnect();
+	$this->connect(WRITE_MODE);
+	$base=$this->DB;
+		
+	$query_result=$base->query($sql_insert);
+	
+		if ($query_result) {
+			return "<h4> Статья \"".$array_rec['name']."\" добавлена</h4>".GOTO_ADD;
+		} else {
+			return mysqli_error($base).GOTO_ADD;	
+		}
+	$this->disconnect();
+	$this->connect(READ_MODE);
    }	
  }
 ?>

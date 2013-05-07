@@ -34,27 +34,40 @@
 		}
 		
 		private function capitalize_first($input_string){
-		//	$input_string=mb_convert_case($input_string, MB_CASE_TITLE,"UTF-8");
+		
+			//$input_string=mb_convert_case($input_string, MB_CASE_LOWER,ENC);
+		
 			$input_string=mb_convert_case($input_string, MB_CASE_TITLE,ENC);
 			return $input_string;
 		}
 		
 		private function remove_multiple_spaces($input_string, $replace_with){
-			$input_string=strip_tags($input_string);	
+			
+			$input_string=strip_tags($input_string);
 			$input_string=trim($input_string);
 			$many_spaces_pattern="/\s+/";
-			return preg_replace($many_spaces_pattern, $replace_with, $input_string);	
+			return mb_ereg_replace($many_spaces_pattern, $replace_with, $input_string);	
 		}
     	
 		public function check_name(){
+			
 			$this->correct_name=$this->remove_multiple_spaces($this->correct_name, SPACE);
+		
 			$this->correct_name=$this->capitalize_first($this->correct_name);					
 		}
 		
-		public function file_safety_upload($filename){
+		public function file_safety_upload($tmp_filename){
+			if(!empty($tmp_filename)){
+				
+			@mkdir($this->upload_dir,777);	
 			$destination=$this->upload_dir.basename($this->article_filename);	
-		//	if ($this->is_html($filename))
-			move_uploaded_file($filename, $destination);
+			//	if ($this->is_html($filename))
+
+			move_uploaded_file($tmp_filename, $destination);
+			 }
+			 else {
+			  exit("Неверное имя файла. <a href=\"add.php\"> Назад</a>");		
+			}
 		}
 /*
 		private function is_html($filename){

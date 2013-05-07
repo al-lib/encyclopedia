@@ -3,7 +3,7 @@
 <?php
 include("class/database_manager.class.php");
  $db_manager=new Database_manager;
- $db_manager->connect();
+ $db_manager->connect(READ_MODE);
 
 ?>
 <html>
