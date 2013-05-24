@@ -6,15 +6,18 @@
 	var $photo_name;
 	var $photo_tmp_name;
 	var $photo_path;
+	var $header_charset;
 	
 	
 	public function __construct(){
 		$this->fname=$_POST['person_name'];
-		$this->description=stripslashes($_POST['data']);
+		
+		$this->description="<body>".stripslashes($_POST['data']);
 		$this->photo_name=$_FILES['photo']['name'];
 		$this->photo_tmp_name=$_FILES['photo']['tmp_name'];
 		$this->photo_path="files/photo/";
 		$this->file_path="files/";
+		$this->header_charset='<head> <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> </head>';
 		
 	}
 	
@@ -67,7 +70,7 @@
 		$this->add_photo();
 		$file_pointer=fopen($filename, "w");
 		echo ($this->description);
-		$is_writed=fwrite($file_pointer, $this->description);
+		$is_writed=fwrite($file_pointer, $this->header_charset.$this->description);
 		if($is_writed) echo "Данные внесены"; else echo "Ошибка при записи в файл";
 		fclose($file_pointer);
 	}
@@ -75,16 +78,18 @@
 	public function add_photo()
 	{
 			if(!empty($this->photo_tmp_name)){
+				@mkdir("files",777);
+				@mkdir($this->photo_path,777,TRUE);	
+				$destination=$this->photo_path.basename($this->photo_name);	
+				$relative_src="photo/".basename($this->photo_name);
+				//	if ($this->is_html($filename))
 				
-			@mkdir($this->photo_path,777);	
-			$destination=$this->photo_path.basename($this->photo_name);	
-			$relative_src="photo/".basename($this->photo_name);
-			//	if ($this->is_html($filename))
-
-			move_uploaded_file($this->photo_tmp_name, $destination);
-			
-			// Заменить ### на имя файла 
-			$this->description=str_replace("###", $relative_src, $this->description);
+				move_uploaded_file($this->photo_tmp_name, $destination);
+				
+				$add_floating="float=\"left ";
+				// Заменить ### на имя файла 
+				$this->description=str_replace("###", $relative_src."\" ".$add_floating, $this->description);
+				
 			 }
 			 else {
 			  echo("Неверное имя файла. <a href=\"write.php\"> Назад</a>");		
