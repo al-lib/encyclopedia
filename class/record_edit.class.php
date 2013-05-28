@@ -7,7 +7,7 @@
 	var $photo_tmp_name;
 	var $photo_path;
 	var $header_charset;
-	
+	var $charset;
 	
 	public function __construct(){
 		$this->fname=$_POST['person_name'];
@@ -17,7 +17,8 @@
 		$this->photo_tmp_name=$_FILES['photo']['tmp_name'];
 		$this->photo_path="files/photo/";
 		$this->file_path="files/";
-		$this->header_charset='<head> <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> </head>';
+		$this->charset="cp-1251";
+		$this->header_charset='<head> <meta http-equiv="Content-Type" content="text/html; charset=cp-1251"/> </head>';
 		
 	}
 	
@@ -26,13 +27,15 @@
 			$input_string=strip_tags($input_string);
 			$input_string=trim($input_string);
 			$many_spaces_pattern="/\s+/";
-			return mb_ereg_replace($many_spaces_pattern, " ", $input_string);	
+		
+			return ereg_replace($many_spaces_pattern, " ", $input_string);	
 		}
 	
 	public function convert_name($name)
 	{
 		$name=trim($name);
-		$name=mb_convert_case($name, MB_CASE_LOWER,"UTF-8");
+		//$name=mb_convert_case($name, MB_CASE_LOWER,"UTF-8");
+		$name=strtolower($name);
 		$name=$this->remove_multiple_spaces($name);
 		
 		$transliteration_array = array(

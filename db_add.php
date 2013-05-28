@@ -8,7 +8,7 @@ include("class/database_manager.class.php");
 ?>
 <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<meta http-equiv="Content-Type" content="text/html; charset=cp1251"/>
 		<link rel="stylesheet" type="text/css" href="styles/add_form_style.css" media="screen" />
 		<title>add</title>
 
