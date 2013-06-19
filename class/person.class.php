@@ -28,7 +28,7 @@
 			
 			define('SPACE', ' ');
 			define('COMMA', ', ');
-			define('ENC', 'cp-1251');
+			define('ENC', 'UTF-8');
 			
 			
 		}
@@ -37,8 +37,7 @@
 		
 			//$input_string=mb_convert_case($input_string, MB_CASE_LOWER,ENC);
 		
-		
-			$input_string=ucwords($input_string);
+			$input_string=mb_convert_case($input_string, MB_CASE_TITLE,ENC);
 			return $input_string;
 		}
 		
@@ -47,7 +46,7 @@
 			$input_string=strip_tags($input_string);
 			$input_string=trim($input_string);
 			$many_spaces_pattern="/\s+/";
-			return ereg_replace($many_spaces_pattern, $replace_with, $input_string);	
+			return mb_ereg_replace($many_spaces_pattern, $replace_with, $input_string);	
 		}
     	
 		public function check_name(){
